@@ -9,7 +9,10 @@ app.get('/:date?',(req,res,next)=>{
     if ( reqDate ){
         dateTime = new Date(reqDate)
     }
-    res.status(200).json({unix:dateTime.getTime(),utc:dateTime.toUTCString()})
+    if ( dateTime != 'Invalid Date'){
+        return res.status(200).json({unix:dateTime.getTime(),utc:dateTime.toUTCString()})
+    }
+    next(new Error('Invalid Date'))
 })
 
 module.exports.timestampRoute = app
