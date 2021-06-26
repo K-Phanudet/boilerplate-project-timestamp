@@ -12,6 +12,4 @@ app.get('/:date?',(req,res,next)=>{
     res.status(200).json({unix:dateTime.getTime(),utc:dateTime.toUTCString()})
 })
 
-
-
 module.exports.timestampRoute = app

@@ -18,7 +18,10 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
-
+app.use((req,res,next)=>{
+  console.info(`${new Date().toLocaleString()} :: ${req.method} ${req.path} - ${req.ip}`)
+  next()
+})
 router.use(timestampRoute)
 app.use('/api',router)
 
@@ -26,8 +29,6 @@ app.use('/api',router)
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
